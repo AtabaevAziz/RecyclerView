@@ -3,13 +3,16 @@ package com.example.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewViewHolder> {
+
+    private ArrayList<RecyclerViewItem> arrayList;
 
     public static class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
 
@@ -22,9 +25,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageView = itemView.findViewById(R.id.imageView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
-
-
         }
+    }
+
+    public RecyclerViewAdapter(ArrayList<RecyclerViewItem> arrayList) {
+        this.arrayList = arrayList;
     }
 
     @NonNull
@@ -38,12 +43,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewViewHolder recyclerViewViewHolder, int i) {
+        RecyclerViewItem recyclerViewItem = arrayList.get(i);
 
+        recyclerViewViewHolder.imageView.setImageResource(recyclerViewItem.getImageResource());
+        recyclerViewViewHolder.textView1.setText(recyclerViewItem.getText1());
+        recyclerViewViewHolder.textView2.setText(recyclerViewItem.getText2());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return arrayList.size();
     }
 }
